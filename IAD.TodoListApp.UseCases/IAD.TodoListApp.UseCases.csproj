@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
+    <ProjectReference Include="..\src\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />
+  </ItemGroup>
+
+</Project>

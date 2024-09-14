@@ -1,4 +1,4 @@
-﻿namespace RIP.TodoList.Core.Authentication;
+﻿namespace IAD.TodoListApp.Core.Authentication;
 
 /// <summary>
 /// Модель токена
