@@ -5,6 +5,9 @@ using IAD.TodoListApp.Core.Authentication;
 
 namespace IAD.TodoListApp.DataAccess.Cfg;
 
+/// <summary>
+/// Конфигурация для модели RegularUser.
+/// </summary>
 internal class RegularUserCfg : IEntityTypeConfiguration<RegularUser>
 {
     public void Configure(EntityTypeBuilder<RegularUser> builder)

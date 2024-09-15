@@ -16,6 +16,7 @@ using IAD.TodoListApp.UseCases.Commands.Auth.RegistrationCommand;
 using IAD.TodoListApp.DataAccess;
 using IAD.TodoListApp.UseCases;
 using IAD.TodoListApp.UseCases.Queries.User;
+using IAD.TodoListApp.DataAccess.Repositories;
 
 namespace IAD.TodoListApp.Service;
 
@@ -105,6 +106,7 @@ public static class Program
         services.AddValidatorsFromAssemblyContaining<RegistrationCommandValidator>();
         // Dependencies
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITaskRepository, TaskRepository>();
         services.AddScoped<UserAccessor>();
         // Options
         services.Configure<PasswordOptions>(configuration.GetSection("PasswordOptions"));

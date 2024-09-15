@@ -8,7 +8,7 @@ using IAD.TodoListApp.Core.Enums;
 namespace IAD.TodoListApp.DataAccess.Cfg;
 
 /// <summary>
-/// Конфигурация таблицы с пользователями.
+/// Конфигурация для абстрактной модели User.
 /// </summary>
 internal class UserCfg : IEntityTypeConfiguration<UserBase>
 {

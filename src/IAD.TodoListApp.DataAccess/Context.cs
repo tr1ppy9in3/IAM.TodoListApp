@@ -3,6 +3,7 @@
 using IAD.TodoListApp.Core.Abstractions;
 using IAD.TodoListApp.Core.Authentication;
 using IAD.TodoListApp.DataAccess.Cfg;
+using IAD.TodoListApp.Core;
 
 
 namespace IAD.TodoListApp.DataAccess;
@@ -13,14 +14,15 @@ namespace IAD.TodoListApp.DataAccess;
 public class Context : DbContext
 {
     public DbSet<UserBase> Users { get; set; }
-    public DbSet<Admin> PetSitters { get; set; }
-    public DbSet<RegularUser> PetOwners { get; set; }
+    public DbSet<Admin> Admins{ get; set; }
+    public DbSet<RegularUser> RegularUsers { get; set; }
+    public DbSet<TodoTask> TodoTasks { get; set; }
+    public DbSet<TaskCategory> TaskCategories { get; set; }
 
     public Context(DbContextOptions<Context> option) : base(option)
     {
         //Database.EnsureDeleted();
         Database.EnsureCreated();
-
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
