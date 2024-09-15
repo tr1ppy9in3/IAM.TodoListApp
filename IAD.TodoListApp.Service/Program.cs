@@ -1,16 +1,27 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.Core.Options;
-using IAD.TodoListApp.Infrastructure;
 using IAD.TodoListApp.Service.SwaggerFilters;
+using IAD.TodoListApp.UseCases.Abstractions.Repositories;
+using RIP.TodoList.DataAccess.Repositories;
+using IAD.TodoListApp.UseCases.Commands.Auth.RegistrationCommand;
+using IAD.TodoListApp.DataAccess;
+using IAD.TodoListApp.UseCases;
+using IAD.TodoListApp.UseCases.Queries.User;
 
+namespace IAD.TodoListApp.Service;
 
+/// <summary>
+/// Программа для создания задач.
+/// </summary>
 public static class Program
 {
     /// <summary>
@@ -61,15 +72,14 @@ public static class Program
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"
             });
-            options.OperationFilter<AuthorizeCheckOperationFilter>();
             options.OperationFilter<SecurityRequirementsOperationFilter>();
+            options.OperationFilter<AuthorizeCheckOperationFilter>();
 
             var basePath = AppContext.BaseDirectory;
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(basePath, xmlFile);
             options.IncludeXmlComments(xmlPath);
         });
-
 
         ConfigureDI(services, cfg);
 
@@ -78,7 +88,23 @@ public static class Program
 
     private static void ConfigureDI(IServiceCollection services, ConfigurationManager configuration)
     {
-        // Others
+        // DB Context
+        var connectionStrings = configuration.GetConnectionString("DefaultConnection");
+        services.AddDbContext<Context>(options =>
+        {
+            options.UseNpgsql(connectionStrings);
+            options.UseSnakeCaseNamingConvention();
+        });
+        // Mediator
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllUsersQuery).Assembly));
+        // AutoMapper
+        services.AddAutoMapper(cfg => cfg.AddProfile(typeof(MappingProfile)));
+        // Validation
+        services.AddFluentValidationAutoValidation();
+        services.AddFluentValidationClientsideAdapters();
+        services.AddValidatorsFromAssemblyContaining<RegistrationCommandValidator>();
+        // Dependencies
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<UserAccessor>();
         // Options
         services.Configure<PasswordOptions>(configuration.GetSection("PasswordOptions"));
@@ -120,9 +146,13 @@ public static class Program
             {
                 policy.RequireRole("Admin");
             })
-            .AddPolicy("NormalUserPolicy", policy =>
+            .AddPolicy("PetSitterPolicy", policy =>
             {
-                policy.RequireRole("NormalUser");
+                policy.RequireRole("PetSitter");
+            })
+            .AddPolicy("PetOwnerPolicy", policy =>
+            {
+                policy.RequireRole("PetOwner");
             });
 
         services.AddScoped<ITokenService, TokenService>();

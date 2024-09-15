@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿	<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -9,16 +9,17 @@
 
 	<ItemGroup>
 		<PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.7.3" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.3" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.7.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.1" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\IAD.TodoListApp.Infrastructure\IAD.TodoListApp.Infrastructure.csproj" />
+	  <ProjectReference Include="..\IAD.TodoListApp.Contracts\IAD.TodoListApp.Contracts.csproj" />
+	  <ProjectReference Include="..\IAD.TodoListApp.DataAccess\IAD.TodoListApp.DataAccess.csproj" />
 	  <ProjectReference Include="..\IAD.TodoListApp.UseCases\IAD.TodoListApp.UseCases.csproj" />
 	  <ProjectReference Include="..\src\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
 	  <ProjectReference Include="..\src\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />

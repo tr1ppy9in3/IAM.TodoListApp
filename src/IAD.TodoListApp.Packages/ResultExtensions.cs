@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RIP.TodoList.Packages;
+namespace IAD.TodoListApp.Packages;
 
 /// <summary>
 /// Расширения для <see cref="Result{T}"/>

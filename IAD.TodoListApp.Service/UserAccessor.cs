@@ -4,7 +4,7 @@ using System.Security.Claims;
 using IAD.TodoListApp.Core.Enums;
 using IAD.TodoListApp.UseCases.Abstractions;
 
-namespace IAD.TodoListApp.Infrastructure;
+namespace IAD.TodoListApp.Service;
 
 /// <summary>
 /// Сервис для доступа к данным пользователя.
@@ -14,7 +14,7 @@ public class UserAccessor(IHttpContextAccessor httpContextAccessor) : IUserAcces
     /// <summary>
     /// Авторизированный пользователь.
     /// </summary>
-    private readonly ClaimsPrincipal _user = httpContextAccessor.HttpContext?.User 
+    private readonly ClaimsPrincipal _user = httpContextAccessor.HttpContext?.User
         ?? throw new ArgumentNullException(nameof(httpContextAccessor));
 
     /// <summary>
@@ -56,7 +56,7 @@ public class UserAccessor(IHttpContextAccessor httpContextAccessor) : IUserAcces
             }
         }
 
-        return UserRole.None; 
+        return UserRole.None;
     }
 
     /// <summary>

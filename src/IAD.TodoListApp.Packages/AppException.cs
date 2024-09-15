@@ -1,4 +1,4 @@
-﻿namespace RIP.TodoList.Packages;
+﻿namespace IAD.TodoListApp.Packages;
 
 public class AppException : Exception
 {
