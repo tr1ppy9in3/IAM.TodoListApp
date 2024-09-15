@@ -7,14 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.2" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IAD.TodoListApp.UseCases\IAD.TodoListApp.UseCases.csproj" />
-    <ProjectReference Include="..\src\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
-    <ProjectReference Include="..\src\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />
+    <ProjectReference Include="..\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
   </ItemGroup>
 
 </Project>

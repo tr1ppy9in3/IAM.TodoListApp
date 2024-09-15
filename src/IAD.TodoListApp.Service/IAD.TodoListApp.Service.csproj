@@ -1,4 +1,4 @@
-﻿	<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,8 +21,8 @@
 	  <ProjectReference Include="..\IAD.TodoListApp.Contracts\IAD.TodoListApp.Contracts.csproj" />
 	  <ProjectReference Include="..\IAD.TodoListApp.DataAccess\IAD.TodoListApp.DataAccess.csproj" />
 	  <ProjectReference Include="..\IAD.TodoListApp.UseCases\IAD.TodoListApp.UseCases.csproj" />
-	  <ProjectReference Include="..\src\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
-	  <ProjectReference Include="..\src\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />
+	  <ProjectReference Include="..\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
+	  <ProjectReference Include="..\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />
 	</ItemGroup>
 
 </Project>

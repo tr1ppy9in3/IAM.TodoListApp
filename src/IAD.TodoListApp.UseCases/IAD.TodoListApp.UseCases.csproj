@@ -15,8 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IAD.TodoListApp.Contracts\IAD.TodoListApp.Contracts.csproj" />
-    <ProjectReference Include="..\src\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
-    <ProjectReference Include="..\src\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />
+    <ProjectReference Include="..\IAD.TodoListApp.Core\IAD.TodoListApp.Core.csproj" />
+    <ProjectReference Include="..\IAD.TodoListApp.Packages\IAD.TodoListApp.Packages.csproj" />
   </ItemGroup>
 
 </Project>
