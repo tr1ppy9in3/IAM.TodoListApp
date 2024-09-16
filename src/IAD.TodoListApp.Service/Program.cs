@@ -148,13 +148,9 @@ public static class Program
             {
                 policy.RequireRole("Admin");
             })
-            .AddPolicy("PetSitterPolicy", policy =>
+            .AddPolicy("RegularUserPolicy", policy =>
             {
-                policy.RequireRole("PetSitter");
-            })
-            .AddPolicy("PetOwnerPolicy", policy =>
-            {
-                policy.RequireRole("PetOwner");
+                policy.RequireRole("RegularUser");
             });
 
         services.AddScoped<ITokenService, TokenService>();

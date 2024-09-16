@@ -23,7 +23,7 @@ public class UserController(IMediator mediator, UserAccessor userAccessor) : Con
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     /// <summary>
-    /// Сервис для доступа к данным пользователя
+    /// Сервис для доступа к данным авторизованного пользователя.
     /// </summary>
     private readonly UserAccessor _userAccessor = userAccessor ?? throw new ArgumentNullException(nameof(userAccessor));
 

@@ -10,7 +10,7 @@ using IAD.TodoListApp.UseCases.Commands.Auth.LoginCommand;
 namespace IAD.TodoListApp.Service.Controllers;
 
 /// <summary>
-/// Контроллер для аунтефикации
+/// Контроллер для аунтефикации.
 /// </summary>
 [Route("api/auth")]
 [ApiController]
@@ -18,15 +18,15 @@ namespace IAD.TodoListApp.Service.Controllers;
 public class AuthController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Медиатор
+    /// Посредник.
     /// </summary>
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     /// <summary>
-    /// Регистрация
+    /// Регистрация.
     /// </summary>
-    /// <response code="200"> Успешно </response>
-    /// <response code="400"> Некоретный запрос </response>
+    /// <response code="200"> Успешно. </response>
+    /// <response code="400"> Некоретный запрос. </response>
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [HttpPost("registration")]
@@ -36,11 +36,11 @@ public class AuthController(IMediator mediator) : ControllerBase
         return result.ToActionResult();
     }
     /// <summary>
-    /// Авторизация
+    /// Авторизация.
     /// </summary>
-    /// <response code="200"> Успешно </response>
-    /// <returns> Токен </returns>
-    /// <response code="400"> Некоретный запрос </response>
+    /// <response code="200"> Успешно. </response>
+    /// <returns> Токен. </returns>
+    /// <response code="400"> Некоретный запрос. </response>
     [ProducesResponseType(typeof(Token), 200)]
     [ProducesResponseType(400)]
     [HttpPost("login")]
