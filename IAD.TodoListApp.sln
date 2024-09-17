@@ -19,6 +19,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAD.TodoListApp.DataAccess"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAD.TodoListApp.Infrastructure", "src\IAD.TodoListApp.Infrastructure\IAD.TodoListApp.Infrastructure.csproj", "{9C624192-60F3-40DB-BDBE-AA189B9CF15A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chat", "Chat", "{71EF3880-6A3E-4280-94B2-08B36EAB6173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.TodoListApp.Chat.Core", "IAM.TodoListApp.Chat.Core\IAM.TodoListApp.Chat.Core.csproj", "{CEFDEC9F-8AD3-4295-8CD1-0E3458640955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.TodoListApp.Chat.Service", "IAM.TodoListApp.Chat.Service\IAM.TodoListApp.Chat.Service.csproj", "{546669CB-5089-477E-8A37-3CE0F26D3A38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8B9B623-7270-4FEE-848C-03477368671A}"
+	ProjectSection(SolutionItems) = preProject
+		chatTest.html = chatTest.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +64,14 @@ Global
 		{9C624192-60F3-40DB-BDBE-AA189B9CF15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C624192-60F3-40DB-BDBE-AA189B9CF15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C624192-60F3-40DB-BDBE-AA189B9CF15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFDEC9F-8AD3-4295-8CD1-0E3458640955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFDEC9F-8AD3-4295-8CD1-0E3458640955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFDEC9F-8AD3-4295-8CD1-0E3458640955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFDEC9F-8AD3-4295-8CD1-0E3458640955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546669CB-5089-477E-8A37-3CE0F26D3A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546669CB-5089-477E-8A37-3CE0F26D3A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546669CB-5089-477E-8A37-3CE0F26D3A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546669CB-5089-477E-8A37-3CE0F26D3A38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +84,9 @@ Global
 		{86908AED-AC46-4FDD-9080-76A30B1B439C} = {3E47910D-D8BF-43C3-AB94-EF7FFC9D3BDF}
 		{DE7C4E02-DEA1-4EBD-B736-F08CA4782692} = {3E47910D-D8BF-43C3-AB94-EF7FFC9D3BDF}
 		{9C624192-60F3-40DB-BDBE-AA189B9CF15A} = {3E47910D-D8BF-43C3-AB94-EF7FFC9D3BDF}
+		{71EF3880-6A3E-4280-94B2-08B36EAB6173} = {3E47910D-D8BF-43C3-AB94-EF7FFC9D3BDF}
+		{CEFDEC9F-8AD3-4295-8CD1-0E3458640955} = {71EF3880-6A3E-4280-94B2-08B36EAB6173}
+		{546669CB-5089-477E-8A37-3CE0F26D3A38} = {71EF3880-6A3E-4280-94B2-08B36EAB6173}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D922811-9E9D-4B5C-B90F-9F0D042CA994}

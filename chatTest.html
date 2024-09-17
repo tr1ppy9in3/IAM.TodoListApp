@@ -1,0 +1,24 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+<script type="text/javascript">
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:3000/hubs/chat")
+        .build();
+
+    // Получение сообщений от сервера
+    connection.on("ReceivedMessage", function (message, user) {
+        console.log(`${user.username}: ${message.content}`);
+    });
+
+    // Запуск подключения
+    connection.start().catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    // Отправка сообщения
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        const message = document.getElementById("messageInput").value;
+        connection.invoke("SendMessage", message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+    });</script>

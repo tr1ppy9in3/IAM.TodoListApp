@@ -17,6 +17,7 @@ using IAD.TodoListApp.DataAccess;
 using IAD.TodoListApp.UseCases;
 using IAD.TodoListApp.UseCases.Queries.User;
 using IAD.TodoListApp.DataAccess.Repositories;
+using IAM.TodoListApp.Chat.Service.Hubs;
 
 namespace IAD.TodoListApp.Service;
 
@@ -47,13 +48,13 @@ public static class Program
 
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(policy =>
-            {
-                policy.WithOrigins("http://localhost:3000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            });
+            options.AddPolicy("AllowAllOrigins",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
         });
 
         var env = builder.Environment;
@@ -96,6 +97,8 @@ public static class Program
             options.UseNpgsql(connectionStrings);
             options.UseSnakeCaseNamingConvention();
         });
+        // SignalR
+        services.AddSignalR();
         // Mediator
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllUsersQuery).Assembly));
         // AutoMapper
@@ -173,7 +176,7 @@ public static class Program
         }
 
         app.UseRouting();
-        app.UseCors();
+        app.UseCors("AllowAllOrigins");
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -182,6 +185,8 @@ public static class Program
         app.MapGet(string.Empty, async ctx => await ctx.Response.WriteAsync(appName));
 
         app.MapControllers();
+
+        app.MapHub<ChatHub>("hubs/chat");
 
         await app.RunAsync();
     }

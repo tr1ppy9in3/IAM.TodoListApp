@@ -44,7 +44,9 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     public async Task<IActionResult> GetTaskById(long id)
     {
         var result = _mediator.Send(new GetTaskByIdQuery(id));
-        return result.ToActionResult();
+        throw new NotImplementedException();
+
+        //return result.ToActionResult();
     }
 
     [HttpPost]
@@ -53,6 +55,8 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     public async Task<IActionResult> Create(TaskInputModel taskInputModel)
     {
         long userId = _userAccessor.GetUserId();
+
+        throw new NotImplementedException();
     }
 
     [HttpPut("/{id:long}")]
@@ -60,6 +64,7 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     [ProducesResponseType(400)]
     public async Task<IActionResult> Update(long id, TaskInputModel taskInputModel)
     {
+        throw new NotImplementedException();
 
     }
 
@@ -68,6 +73,6 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     [ProducesResponseType(400)]
     public async Task<IActionResult> Delete(long id)
     {
-
+        throw new NotImplementedException();
     }
 }
