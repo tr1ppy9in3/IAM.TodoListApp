@@ -1,5 +1,5 @@
-﻿using IAD.TodoListApp.Core.Abstractions;
-using IAD.TodoListApp.Core.Authentication;
+﻿using IAD.TodoListApp.Core;
+using IAD.TodoListApp.Core.Abstractions;
 
 namespace IAD.TodoListApp.UseCases.Abstractions;
 

@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using IAD.TodoListApp.UseCases.Commands.Auth.RegistrationCommand;
 using IAD.TodoListApp.Packages;
-using IAD.TodoListApp.Core.Authentication;
 using IAD.TodoListApp.UseCases.Commands.Auth.LoginCommand;
+using IAD.TodoListApp.Core;
 
 namespace IAD.TodoListApp.Service.Controllers;
 

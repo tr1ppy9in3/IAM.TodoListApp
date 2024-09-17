@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IAM.TodoListApp.Chat.Core\IAM.TodoListApp.Chat.Core.csproj" />
+    <ProjectReference Include="..\IAM.TodoListApp.Chat.Core\IAD.TodoListApp.Chat.Core.csproj" />
   </ItemGroup>
 
 </Project>

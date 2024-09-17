@@ -5,11 +5,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 
 using IAD.TodoListApp.Core.Options;
+using IAD.TodoListApp.Core.Authentication;
 using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.Core.Abstractions;
-using IAD.TodoListApp.Core;
 
-namespace IAD.TodoListApp.Service;
+namespace IAM.TodoListApp.Auth.Infrastructure;
 
 /// <summary>
 /// Реализация <see cref="ITokenService"/>.

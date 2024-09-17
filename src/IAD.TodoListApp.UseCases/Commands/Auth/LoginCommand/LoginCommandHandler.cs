@@ -3,10 +3,10 @@ using Microsoft.Extensions.Options;
 
 using IAD.TodoListApp.Core.Options;
 using IAD.TodoListApp.UseCases.Abstractions;
-using IAD.TodoListApp.Core.Authentication;
 using IAD.TodoListApp.Core.Services;
 using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.UseCases.Abstractions.Repositories;
+using IAD.TodoListApp.Core;
 
 namespace IAD.TodoListApp.UseCases.Commands.Auth.LoginCommand;
 

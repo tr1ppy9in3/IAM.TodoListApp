@@ -17,7 +17,7 @@ using IAD.TodoListApp.DataAccess;
 using IAD.TodoListApp.UseCases;
 using IAD.TodoListApp.UseCases.Queries.User;
 using IAD.TodoListApp.DataAccess.Repositories;
-using IAM.TodoListApp.Chat.Service.Hubs;
+using IAD.TodoListApp.Chat.Service.Hubs;
 
 namespace IAD.TodoListApp.Service;
 

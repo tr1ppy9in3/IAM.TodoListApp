@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\IAM.TodoListApp.Chat.Service\IAM.TodoListApp.Chat.Service.csproj" />
+	  <ProjectReference Include="..\Chat\IAM.TodoListApp.Chat.Service\IAD.TodoListApp.Chat.Service.csproj" />
 	  <ProjectReference Include="..\IAD.TodoListApp.Contracts\IAD.TodoListApp.Contracts.csproj" />
 	  <ProjectReference Include="..\IAD.TodoListApp.DataAccess\IAD.TodoListApp.DataAccess.csproj" />
 	  <ProjectReference Include="..\IAD.TodoListApp.UseCases\IAD.TodoListApp.UseCases.csproj" />

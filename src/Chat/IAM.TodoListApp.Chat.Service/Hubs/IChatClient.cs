@@ -1,6 +1,6 @@
-﻿using IAM.TodoListApp.Chat.Core;
+﻿using IAD.TodoListApp.Chat.Core;
 
-namespace IAM.TodoListApp.Chat.Service.Hubs;
+namespace IAD.TodoListApp.Chat.Service.Hubs;
 public interface IChatClient
 {
     Task ReceivedMessage(Message message, User user);

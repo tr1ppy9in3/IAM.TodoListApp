@@ -1,4 +1,4 @@
-﻿namespace IAM.TodoListApp.Chat.Core;
+﻿namespace IAD.TodoListApp.Chat.Core;
 
 public class Message
 {

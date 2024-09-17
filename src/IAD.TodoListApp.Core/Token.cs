@@ -1,4 +1,4 @@
-﻿namespace IAD.TodoListApp.Core.Authentication;
+﻿namespace IAD.TodoListApp.Core;
 
 /// <summary>
 /// Модель токена

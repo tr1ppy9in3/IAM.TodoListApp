@@ -1,7 +1,6 @@
 ﻿using MediatR;
-
-using IAD.TodoListApp.Core.Authentication;
 using IAD.TodoListApp.Packages;
+using IAD.TodoListApp.Core;
 
 namespace IAD.TodoListApp.UseCases.Commands.Auth.LoginCommand;
 
