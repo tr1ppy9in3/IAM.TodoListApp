@@ -10,14 +10,15 @@ using Microsoft.EntityFrameworkCore;
 using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.Core.Options;
 using IAD.TodoListApp.Service.SwaggerFilters;
-using IAD.TodoListApp.UseCases.Abstractions.Repositories;
 using RIP.TodoList.DataAccess.Repositories;
-using IAD.TodoListApp.UseCases.Commands.Auth.RegistrationCommand;
 using IAD.TodoListApp.DataAccess;
 using IAD.TodoListApp.UseCases;
-using IAD.TodoListApp.UseCases.Queries.User;
 using IAD.TodoListApp.DataAccess.Repositories;
 using IAD.TodoListApp.Chat.Service.Hubs;
+using IAD.TodoListApp.UseCases.User.Queries;
+using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
+using IAD.TodoListApp.UseCases.User;
+using IAD.TodoListApp.UseCases.TodoTask;
 
 namespace IAD.TodoListApp.Service;
 

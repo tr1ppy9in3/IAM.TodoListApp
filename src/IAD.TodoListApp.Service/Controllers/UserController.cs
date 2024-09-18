@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using IAD.TodoListApp.Packages;
-using IAD.TodoListApp.UseCases.Commands.User;
-using IAD.TodoListApp.UseCases.Queries.User;
 using IAD.TodoListApp.Contracts;
-using IAD.TodoListApp.Core.Enums;
+using IAD.TodoListApp.UseCases.User.Queries;
+using IAD.TodoListApp.UseCases.User.Commands.UpdateInitials;
+using IAD.TodoListApp.UseCases.User.Commands.UpdatePicture;
+using IAD.TodoListApp.UseCases.User.Commands.ChangeEmail;
+using IAD.TodoListApp.UseCases.User.Commands.ChangePassword;
+using IAD.TodoListApp.UseCases.User.Commands.SelfDelete;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
@@ -102,13 +105,6 @@ public class UserController(IMediator mediator, UserAccessor userAccessor) : Con
     public async Task<IActionResult> UpdatePicture(IFormFile picture)
     {
         long userId = _userAccessor.GetUserId();
-
-        if (picture.ContentType is not "image/jpeg" && 
-            picture.ContentType is not "image/png" && 
-            picture.ContentType is not "image/jpg")
-        {
-            return StatusCode(415, "Unsupported media type.");
-        }
 
         var result = await _mediator.Send(new UpdatePictureCommand(userId, picture));
 

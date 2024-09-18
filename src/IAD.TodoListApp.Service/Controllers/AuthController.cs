@@ -1,11 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using IAD.TodoListApp.UseCases.Commands.Auth.RegistrationCommand;
 using IAD.TodoListApp.Packages;
-using IAD.TodoListApp.UseCases.Commands.Auth.LoginCommand;
 using IAD.TodoListApp.Core;
+using IAD.TodoListApp.UseCases.Auth.Commands.LoginCommand;
+using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
 
 namespace IAD.TodoListApp.Service.Controllers;
 

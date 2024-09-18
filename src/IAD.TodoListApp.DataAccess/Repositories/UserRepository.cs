@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using IAD.TodoListApp.DataAccess;
-using IAD.TodoListApp.UseCases.Abstractions.Repositories;
 using IAD.TodoListApp.Core.Abstractions;
+using IAD.TodoListApp.UseCases.User;
 
 namespace RIP.TodoList.DataAccess.Repositories;
 
@@ -89,6 +89,17 @@ public class UserRepository(Context context) : IUserRepository
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
 
+    }
+
+    public async Task Delete(long id)
+    {
+        var user = _context.Users.Find(id);
+
+        if (user is not null)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
     }
 
 }

@@ -4,9 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.UseCases.Abstractions;
-using IAD.TodoListApp.UseCases.Commands.Task;
-using IAD.TodoListApp.UseCases.Queries.Task;
+
 using IAD.TodoListApp.Packages;
+using IAD.TodoListApp.UseCases.TodoTask.Queries;
+using IAD.TodoListApp.UseCases.TodoTask.Commands.CreateTask;
+using IAD.TodoListApp.UseCases.TodoTask.Commands.UpdateTask;
+using IAD.TodoListApp.UseCases.TodoTask.Commands.DeleteTask;
+using IAD.TodoListApp.UseCases.TodoTask.Commands;
 
 namespace IAD.TodoListApp.Service.Controllers;
 

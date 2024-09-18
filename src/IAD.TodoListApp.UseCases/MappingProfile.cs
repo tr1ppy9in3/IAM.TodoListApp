@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.Core;
-using IAD.TodoListApp.UseCases.Commands.Task;
+using IAD.TodoListApp.UseCases.TodoTask.Commands;
 
 namespace IAD.TodoListApp.UseCases;
 public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<TaskInputModel, TodoTask>()
+        CreateMap<TaskInputModel, Core.TodoTask>()
             .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId ?? 0));
 
-        CreateMap<TodoTask, TaskModel>()
+        CreateMap<Core.TodoTask, TaskModel>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

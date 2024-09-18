@@ -12,6 +12,6 @@ public interface ITokenService
     /// Генерация токена доступа.
     /// </summary>
     /// <param name="user"> Пользователь. </param>
-    /// <returns> Access токен </returns>
+    /// <returns> Access токен. </returns>
     public Token GenerateToken(UserBase user);
 }
