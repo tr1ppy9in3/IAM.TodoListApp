@@ -19,6 +19,7 @@ using IAD.TodoListApp.UseCases.User.Queries;
 using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
 using IAD.TodoListApp.UseCases.User;
 using IAD.TodoListApp.UseCases.TodoTask;
+using IAD.TodoListApp.Service.Infrastructure;
 
 namespace IAD.TodoListApp.Service;
 

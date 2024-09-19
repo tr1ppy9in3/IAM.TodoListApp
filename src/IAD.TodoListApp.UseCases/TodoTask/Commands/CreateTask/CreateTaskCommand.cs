@@ -3,8 +3,6 @@ using AutoMapper;
 
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.Packages;
-using IAD.TodoListApp.Core;
-using IAD.TodoListApp.UseCases.TodoTask.Commands;
 
 namespace IAD.TodoListApp.UseCases.TodoTask.Commands.CreateTask;
 

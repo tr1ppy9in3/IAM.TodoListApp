@@ -1,4 +1,6 @@
-﻿namespace IAD.TodoListApp.Core;
+﻿using IAD.TodoListApp.Core.Abstractions;
+
+namespace IAD.TodoListApp.Core;
 
 /// <summary>
 /// Модель категории задачи.
@@ -21,4 +23,10 @@ public class TaskCategory
     /// Дополнительная информация о категории, которая может помочь пользователю понять её назначение.
     /// </summary>
     public required string Description { get; set; }
+
+    /// <summary>
+    /// Пользователь, который создал задачу.
+    /// </summary>
+    public UserBase? User { get; set; }
+    public long UserId { get; set; }
 }

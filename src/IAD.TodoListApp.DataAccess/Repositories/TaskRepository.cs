@@ -1,7 +1,7 @@
-﻿using IAD.TodoListApp.Core;
-using IAD.TodoListApp.UseCases.TodoTask;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
+using IAD.TodoListApp.Core;
+using IAD.TodoListApp.UseCases.TodoTask;
 
 namespace IAD.TodoListApp.DataAccess.Repositories;
 

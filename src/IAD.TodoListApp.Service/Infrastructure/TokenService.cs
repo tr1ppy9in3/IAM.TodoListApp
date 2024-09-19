@@ -9,7 +9,7 @@ using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.Core.Abstractions;
 using IAD.TodoListApp.Core;
 
-namespace IAD.TodoListApp.Service;
+namespace IAD.TodoListApp.Service.Infrastructure;
 
 /// <summary>
 /// Реализация <see cref="ITokenService"/>.

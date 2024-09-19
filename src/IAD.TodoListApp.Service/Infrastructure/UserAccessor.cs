@@ -4,7 +4,7 @@ using System.Security.Claims;
 using IAD.TodoListApp.Core.Enums;
 using IAD.TodoListApp.UseCases.Abstractions;
 
-namespace IAD.TodoListApp.Service;
+namespace IAD.TodoListApp.Service.Infrastructure;
 
 /// <summary>
 /// Сервис для доступа к данным пользователя.

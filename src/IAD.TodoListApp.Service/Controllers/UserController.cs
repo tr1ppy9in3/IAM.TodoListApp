@@ -10,6 +10,7 @@ using IAD.TodoListApp.UseCases.User.Commands.UpdatePicture;
 using IAD.TodoListApp.UseCases.User.Commands.ChangeEmail;
 using IAD.TodoListApp.UseCases.User.Commands.ChangePassword;
 using IAD.TodoListApp.UseCases.User.Commands.SelfDelete;
+using IAD.TodoListApp.Service.Infrastructure;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
