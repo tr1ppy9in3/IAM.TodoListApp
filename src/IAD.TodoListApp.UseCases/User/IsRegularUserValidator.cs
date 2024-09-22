@@ -5,7 +5,7 @@ using IAD.TodoListApp.Core.Authentication;
 namespace IAD.TodoListApp.UseCases.User;
 
 /// <summary>
-/// Валидатор для проверки имеет ли пользователь роль "RegularUser"/
+/// Валидатор для проверки имеет ли пользователь роль "RegularUser".
 /// </summary>
 public class IsRegularUserValidator : AbstractValidator<long>
 {

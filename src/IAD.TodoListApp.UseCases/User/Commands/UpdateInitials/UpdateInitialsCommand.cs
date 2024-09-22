@@ -18,7 +18,9 @@ public record class UpdateInitialsCommand(long Id, UserInitialsModel Model) : IR
 /// </summary>
 public class UpdateInitialsCommandHandler(IUserRepository userRepository) : IRequestHandler<UpdateInitialsCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
+
     public async Task<Result<Unit>> Handle(UpdateInitialsCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetById(request.Id);

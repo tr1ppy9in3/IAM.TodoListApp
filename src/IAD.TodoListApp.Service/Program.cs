@@ -20,6 +20,10 @@ using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
 using IAD.TodoListApp.UseCases.User;
 using IAD.TodoListApp.UseCases.TodoTask;
 using IAD.TodoListApp.Service.Infrastructure;
+using IAD.TodoListApp.UseCases.Auth;
+using IAD.TodoListApp.UseCases.TaskCategory;
+using IAD.TodoListApp.Core;
+using IAD.TodoListApp.Service.Middlewares;
 
 namespace IAD.TodoListApp.Service;
 
@@ -111,7 +115,9 @@ public static class Program
         services.AddValidatorsFromAssemblyContaining<RegistrationCommandValidator>();
         // Dependencies
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<ITaskRepository, TaskRepository>();
+        services.AddScoped<ITaskCategoryRepository, TaskCategoryRepository>();
         services.AddScoped<UserAccessor>();
         // Options
         services.Configure<PasswordOptions>(configuration.GetSection("PasswordOptions"));
@@ -179,6 +185,8 @@ public static class Program
 
         app.UseRouting();
         app.UseCors("AllowAllOrigins");
+
+        app.UseMiddleware<BlacklistTokenMiddleware>();
 
         app.UseAuthentication();
         app.UseAuthorization();

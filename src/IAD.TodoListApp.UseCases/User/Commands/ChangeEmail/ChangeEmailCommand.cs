@@ -30,7 +30,8 @@ public class ChangeEmailCommand(long userId, string email) : IRequest<Result<Uni
 /// </summary>
 public class ChangeEmailCommandHandler(IUserRepository userRepository) : IRequestHandler<ChangeEmailCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<Unit>> Handle(ChangeEmailCommand request, CancellationToken cancellationToken)
     {

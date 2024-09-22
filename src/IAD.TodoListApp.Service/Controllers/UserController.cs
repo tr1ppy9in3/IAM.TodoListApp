@@ -164,7 +164,7 @@ public class UserController(IMediator mediator, UserAccessor userAccessor) : Con
     public async Task<IActionResult> DeleteUser()
     {
         long userId = _userAccessor.GetUserId();
-
+        
         var result = await _mediator.Send(new SelfDeleteCommand(userId));
         return result.ToActionResult();
     }

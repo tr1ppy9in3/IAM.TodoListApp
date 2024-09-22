@@ -1,6 +1,7 @@
 ﻿using MediatR;
 
 using IAD.TodoListApp.Packages;
+using System.Runtime.CompilerServices;
 
 namespace IAD.TodoListApp.UseCases.User.Commands.SelfDelete;
 
@@ -15,7 +16,8 @@ public sealed record class SelfDeleteCommand(long Id) : IRequest<Result<Unit>>;
 /// </summary>
 public class DeleteUserCommandHandler(IUserRepository userRepository) : IRequestHandler<SelfDeleteCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<Unit>> Handle(SelfDeleteCommand request, CancellationToken cancellationToken)
     {

@@ -14,6 +14,12 @@ public interface IUserAccessor
     public long GetUserId();
 
     /// <summary>
+    /// Получить токен пользователя.
+    /// </summary>
+    /// <returns> Строку токена. </returns>
+    public string? GetToken();
+
+    /// <summary>
     /// Получить логин пользователя.
     /// </summary>
     /// <returns> Логин пользователя. </returns>

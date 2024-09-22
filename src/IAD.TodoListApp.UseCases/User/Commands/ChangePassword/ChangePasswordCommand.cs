@@ -28,10 +28,13 @@ public class ChangePasswordCommand(long userId, string password) : IRequest<Resu
 }
 
 public class ChangePasswordComandHandler(IUserRepository userRepository,
-                                    IOptions<PasswordOptions> passwordOptions) : IRequestHandler<ChangePasswordCommand, Result<Unit>>
+                                         IOptions<PasswordOptions> passwordOptions) : IRequestHandler<ChangePasswordCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-    private readonly PasswordOptions _passwordOptions = passwordOptions?.Value ?? throw new ArgumentNullException(nameof(passwordOptions));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
+    
+    private readonly PasswordOptions _passwordOptions = passwordOptions?.Value 
+        ?? throw new ArgumentNullException(nameof(passwordOptions));
 
 
     public async Task<Result<Unit>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)

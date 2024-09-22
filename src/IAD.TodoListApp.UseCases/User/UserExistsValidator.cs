@@ -7,7 +7,6 @@ namespace IAD.TodoListApp.UseCases.User;
 /// </summary>
 public class UserExistsValidator : AbstractValidator<long>
 {
-
     public UserExistsValidator(IUserRepository userRepository)
     {
 

@@ -3,6 +3,7 @@ using System.Security.Claims;
 
 using IAD.TodoListApp.Core.Enums;
 using IAD.TodoListApp.UseCases.Abstractions;
+using System.Net.Http;
 
 namespace IAD.TodoListApp.Service.Infrastructure;
 
@@ -29,6 +30,25 @@ public class UserAccessor(IHttpContextAccessor httpContextAccessor) : IUserAcces
         }
 
         return -1;
+    }
+
+    /// <summary>
+    /// Получить токен из заголовка Authorization.
+    /// </summary>
+    /// <returns> Токен. </returns>
+    public string? GetToken()
+    {
+        var httpContext = httpContextAccessor.HttpContext
+            ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+
+        var authorizationHeader = httpContext.Request.Headers.Authorization.ToString();
+
+        if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
+        {
+            return authorizationHeader["Bearer ".Length..].Trim();
+        }
+
+        return null; 
     }
 
     /// <summary>

@@ -15,11 +15,18 @@ public record class GetAvailableTasksQuery(long UserId) : IStreamRequest<TaskMod
 /// <summary>
 /// Обработчик запроса на полученых доступных для пользователя задач.
 /// </summary>
-public class GetAvailableTasksQueryHandler(ITaskRepository taskRepository, IUserRepository userRepository, IMapper mapper) : IStreamRequestHandler<GetAvailableTasksQuery, TaskModel>
+public class GetAvailableTasksQueryHandler(ITaskRepository taskRepository, 
+                                           IUserRepository userRepository, 
+                                           IMapper mapper) : IStreamRequestHandler<GetAvailableTasksQuery, TaskModel>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-    private readonly ITaskRepository _taskRepository = taskRepository ?? throw new ArgumentNullException(nameof(taskRepository));
-    private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
+    
+    private readonly ITaskRepository _taskRepository = taskRepository 
+        ?? throw new ArgumentNullException(nameof(taskRepository));
+    
+    private readonly IMapper _mapper = mapper 
+        ?? throw new ArgumentNullException(nameof(mapper));
 
     public async IAsyncEnumerable<TaskModel> Handle(GetAvailableTasksQuery request, CancellationToken cancellationToken)
     {
@@ -32,6 +39,5 @@ public class GetAvailableTasksQueryHandler(ITaskRepository taskRepository, IUser
                 yield return _mapper.Map<TaskModel>(task);
             }
         }
-
     }
 }

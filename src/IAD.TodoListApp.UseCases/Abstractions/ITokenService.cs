@@ -1,4 +1,5 @@
-﻿using IAD.TodoListApp.Core;
+﻿using IAD.TodoListApp.Contracts;
+using IAD.TodoListApp.Core;
 using IAD.TodoListApp.Core.Abstractions;
 
 namespace IAD.TodoListApp.UseCases.Abstractions;
@@ -13,5 +14,5 @@ public interface ITokenService
     /// </summary>
     /// <param name="user"> Пользователь. </param>
     /// <returns> Access токен. </returns>
-    public Token GenerateToken(UserBase user);
+    public Task<Token> GenerateToken(UserBase user);
 }

@@ -18,7 +18,8 @@ public record class UpdatePictureCommand(long Id, IFormFile Picture) : IRequest<
 /// </summary>
 public class UpdatePictureCommandHandler(IUserRepository userRepository) : IRequestHandler<UpdatePictureCommand, Result<byte[]>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<byte[]>> Handle(UpdatePictureCommand request, CancellationToken cancellationToken)
     {

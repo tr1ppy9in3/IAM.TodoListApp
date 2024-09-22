@@ -19,9 +19,9 @@ public class CreateTaskCommandValidator : AbstractValidator<CreateTaskCommand>
             .NotEmpty().WithMessage("Task model is required!")
             .SetValidator(new TaskInputModelValidator());
 
-        RuleFor(x => x.Model.CategoryId)
-          .SetValidator(new IsCategoryAvailableForUserValidator(taskCategoryRepository)) 
-          .WithMessage("Category is not available for the user.")
-          .WithState(x => x.UserId);
+        //RuleFor(x => x.Model.CategoryId)
+        //  .SetValidator(new IsCategoryAvailableForUserValidator(taskCategoryRepository)) 
+        //  .WithMessage("Category is not available for the user.")
+        //  .WithState(x => x.UserId);
     }
 }

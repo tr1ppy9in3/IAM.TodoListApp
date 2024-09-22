@@ -26,15 +26,31 @@ public class TaskCategoryController(IMediator mediator, IUserAccessor userAccess
     private readonly IUserAccessor _userAccessor = userAccessor ?? throw new ArgumentNullException(nameof(userAccessor));
 
     /// <summary>
-    /// Получить список доступных пользователю задач.
+    /// Получить список доступных пользователю категорий задач.
     /// </summary>
-    /// <response code="200"> Успешно. Возвращает список задач пользователя. </response>
+    /// <response code="200"> Успешно. Возвращает список категорий задач пользователя. </response>
     /// <response code="400"> Некорректный запрос. </response>
-    [ProducesResponseType(type: typeof(IAsyncEnumerable<TaskModel>), 200)]
+    [ProducesResponseType(type: typeof(IAsyncEnumerable<TaskCategoryModel>), 200)]
     [ProducesResponseType(400)]
     [HttpGet]
-    public Task<IActionResult> GetAvailableTasks()
+    public Task<IActionResult> GetAvailableTaskCategories()
     {
         throw new NotImplementedException();
     }
+
+    /// <summary>
+    /// Получить категорию по идентификатору.
+    /// </summary>
+    /// <param name="id"> Идентификатор категории. </param>
+    /// <response code="200"> Успешно. Возвращает найденную категорию. </response>
+    /// <response code="400"> Некорректный запрос. </response>
+    [ProducesResponseType(type: typeof(TaskCategoryModel), 200)]
+    [ProducesResponseType(400)]
+    [HttpGet("{id:long}")]
+    public Task<IActionResult> GetTaskCategoryById(long id)
+    {
+        throw new NotImplementedException();
+    }
+
+
 }

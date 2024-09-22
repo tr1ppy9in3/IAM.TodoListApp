@@ -24,8 +24,11 @@ public sealed record class RegistrationCommand(string Login, string Password, st
 /// </summary>
 public class RegistrationCommandHandler(IUserRepository userRepository, IOptions<PasswordOptions> passwordOptions) : IRequestHandler<RegistrationCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-    private readonly PasswordOptions _passwordOptions = passwordOptions?.Value ?? throw new ArgumentNullException(nameof(passwordOptions));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
+    
+    private readonly PasswordOptions _passwordOptions = passwordOptions?.Value 
+        ?? throw new ArgumentNullException(nameof(passwordOptions));
 
     public async Task<Result<Unit>> Handle(RegistrationCommand request, CancellationToken cancellationToken)
     {

@@ -13,9 +13,13 @@ namespace IAD.TodoListApp.DataAccess;
 /// </summary>
 public class Context : DbContext
 {
+    // Auth
     public DbSet<UserBase> Users { get; set; }
     public DbSet<Admin> Admins{ get; set; }
     public DbSet<RegularUser> RegularUsers { get; set; }
+    public DbSet<Token> Tokens { get; set; }
+    
+    // Buisness models
     public DbSet<TodoTask> TodoTasks { get; set; }
     public DbSet<TaskCategory> TaskCategories { get; set; }
 
