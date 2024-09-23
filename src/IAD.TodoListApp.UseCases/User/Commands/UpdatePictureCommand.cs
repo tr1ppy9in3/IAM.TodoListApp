@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
 using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.Core.Authentication;
 
-namespace IAD.TodoListApp.UseCases.User.Commands.UpdatePicture;
+namespace IAD.TodoListApp.UseCases.User.Commands;
 
 /// <summary>
 /// Команда смены картинки пользователя.
@@ -18,7 +19,7 @@ public record class UpdatePictureCommand(long Id, IFormFile Picture) : IRequest<
 /// </summary>
 public class UpdatePictureCommandHandler(IUserRepository userRepository) : IRequestHandler<UpdatePictureCommand, Result<byte[]>>
 {
-    private readonly IUserRepository _userRepository = userRepository 
+    private readonly IUserRepository _userRepository = userRepository
         ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<byte[]>> Handle(UpdatePictureCommand request, CancellationToken cancellationToken)
@@ -51,5 +52,32 @@ public class UpdatePictureCommandHandler(IUserRepository userRepository) : IRequ
         await _userRepository.Update(regularUser);
 
         return Result<byte[]>.SuccessfullyCreated(pictureBytes);
+    }
+}
+
+/// <summary>
+/// Валидатор команды смены картинки пользователя.
+/// </summary>
+public class UpdatePictureCommandValidator : AbstractValidator<UpdatePictureCommand>
+{
+    public UpdatePictureCommandValidator(IUserRepository userRepository)
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("UserId is required!")
+            .SetValidator(new UserExistsValidator(userRepository))
+            .SetValidator(new IsRegularUserValidator(userRepository));
+
+        RuleFor(x => x.Picture)
+            .NotNull().WithMessage("Picture is required!")
+            .Must(picture => picture.Length > 0).WithMessage("Picture cannot be empty!")
+            .Must(picture => picture.Length <= 24 * 1024 * 1024).WithMessage("Picture size must be less than 24MB!")
+            .Must(picture => IsValidImageFormat(picture)).WithMessage("Only JPEG or PNG formats are allowed!");
+    }
+
+    private bool IsValidImageFormat(IFormFile file)
+    {
+        var allowedFormats = new[] { ".jpg", ".jpeg", ".png" };
+        var fileExtension = Path.GetExtension(file.FileName).ToLower();
+        return allowedFormats.Contains(fileExtension);
     }
 }

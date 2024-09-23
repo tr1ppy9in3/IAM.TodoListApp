@@ -5,20 +5,29 @@ using IAD.TodoListApp.UseCases.Auth;
 
 namespace IAD.TodoListApp.DataAccess.Repositories;
 
+/// <summary>
+/// Реализация <see cref="ITokenRepository"/>.
+/// </summary>
 public class TokenRepository(Context context) : ITokenRepository
 {
+    /// <summary>
+    /// Контекст БД.
+    /// </summary>
     private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
+    /// <inheritdoc/>
     public async Task<Token?> GetTokenByValue(string token)
     {
         return await _context.Tokens.FirstOrDefaultAsync(t => t.Value == token);
     }
 
+    /// <inheritdoc/>
     public async Task<bool> ExistsByValue(string token)
     {
         return await _context.Tokens.AnyAsync(t => t.Value == token);
     }
 
+    /// <inheritdoc/>
     public async Task<Token> Create(Token token)
     {
         _context.Tokens.Add(token);
@@ -26,12 +35,14 @@ public class TokenRepository(Context context) : ITokenRepository
         return token;    
     }
 
+    /// <inheritdoc/>
     public async Task Update(Token token)
     {
         _context.Tokens.Update(token);
         await _context.SaveChangesAsync();
     }
 
+    /// <inheritdoc/>
     public async Task AddToBlacklist(string token)
     {
         var dbToken = await _context.Tokens.FirstOrDefaultAsync(t => t.Value == token);
@@ -42,6 +53,7 @@ public class TokenRepository(Context context) : ITokenRepository
         }
     }
 
+    /// <inheritdoc/>
     public async Task<bool> IsBlacklisted(string token)
     {
         return await _context.Tokens.AnyAsync(t => t.Value == token && t.IsBlacklisted);

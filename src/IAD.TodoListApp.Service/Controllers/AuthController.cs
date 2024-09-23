@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.Core;
-using IAD.TodoListApp.UseCases.Auth.Commands.LoginCommand;
-using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.UseCases.Auth.Commands.LogoutCommand;
 using IAD.TodoListApp.Core.Authentication;
 using System.Runtime.InteropServices;
 using IAD.TodoListApp.Service.Infrastructure;
+using IAD.TodoListApp.UseCases.Auth.Commands;
 
 namespace IAD.TodoListApp.Service.Controllers;
 

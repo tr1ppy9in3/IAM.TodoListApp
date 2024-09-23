@@ -5,11 +5,20 @@ using IAD.TodoListApp.Packages;
 
 namespace IAD.TodoListApp.UseCases.User.Queries;
 
+/// <summary>
+/// Запрос на получение картинки пользователя.
+/// </summary>
+/// <param name="Id"> Идентификатор пользователя. </param>
 public record class GetUserPictureByIdQuery(long Id) : IRequest<Result<byte[]>>;
 
+/// <summary>
+/// Обработчик запроса на получение картинки пользователя.
+/// </summary>
+/// <param name="userRepository"></param>
 public class GetUserPictureByIdQueryHandler(IUserRepository userRepository) : IRequestHandler<GetUserPictureByIdQuery, Result<byte[]>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<byte[]>> Handle(GetUserPictureByIdQuery request, CancellationToken cancellationToken)
     {

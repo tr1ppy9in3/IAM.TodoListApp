@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 
 using IAD.TodoListApp.Packages;
 
-namespace IAD.TodoListApp.UseCases.User.Commands.ChangeEmail;
+namespace IAD.TodoListApp.UseCases.User.Commands;
 
 /// <summary>
 /// Команда смены почты пользователя.
@@ -30,7 +31,7 @@ public class ChangeEmailCommand(long userId, string email) : IRequest<Result<Uni
 /// </summary>
 public class ChangeEmailCommandHandler(IUserRepository userRepository) : IRequestHandler<ChangeEmailCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository 
+    private readonly IUserRepository _userRepository = userRepository
         ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<Unit>> Handle(ChangeEmailCommand request, CancellationToken cancellationToken)
@@ -50,5 +51,22 @@ public class ChangeEmailCommandHandler(IUserRepository userRepository) : IReques
         await _userRepository.ChangeEmail(user, request.Email);
 
         return Result<Unit>.Empty();
+    }
+}
+
+/// <summary>
+/// Валидатор для команды смены почты пользователя.
+/// </summary>
+public class ChangeEmailCommandValidator : AbstractValidator<ChangeEmailCommand>
+{
+    public ChangeEmailCommandValidator(IUserRepository userRepository)
+    {
+        RuleFor(x => x.UserId)
+            .NotNull().WithMessage("UserId is required!")
+            .SetValidator(new UserExistsValidator(userRepository));
+
+        RuleFor(x => x.Email)
+            .EmailAddress().WithMessage("A valid email is required.")
+            .When(x => !string.IsNullOrEmpty(x.Email)).WithMessage("Email should be a valid email address.");
     }
 }

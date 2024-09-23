@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using FluentValidation;
 
+using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.Core.Authentication;
-using IAD.TodoListApp.Packages;
+using IAD.TodoListApp.UseCases.User.Models;
 
-namespace IAD.TodoListApp.UseCases.User.Commands.UpdateInitials;
+namespace IAD.TodoListApp.UseCases.User.Commands;
 
 /// <summary>
 /// Команда обновления инициалов пользователя.
@@ -18,7 +20,7 @@ public record class UpdateInitialsCommand(long Id, UserInitialsModel Model) : IR
 /// </summary>
 public class UpdateInitialsCommandHandler(IUserRepository userRepository) : IRequestHandler<UpdateInitialsCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository 
+    private readonly IUserRepository _userRepository = userRepository
         ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<Unit>> Handle(UpdateInitialsCommand request, CancellationToken cancellationToken)
@@ -41,5 +43,23 @@ public class UpdateInitialsCommandHandler(IUserRepository userRepository) : IReq
         await _userRepository.Update(regularUser);
 
         return Result<Unit>.Empty();
+    }
+}
+
+/// <summary>
+/// Валидатор команды обновления инициалов пользователя.
+/// </summary>
+public class UpdateInitialsCommandValidator : AbstractValidator<UpdateInitialsCommand>
+{
+    public UpdateInitialsCommandValidator(IUserRepository userRepository)
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("UserId is required!")
+            .SetValidator(new UserExistsValidator(userRepository))
+            .SetValidator(new IsRegularUserValidator(userRepository));
+
+        RuleFor(x => x.Model)
+            .NotNull().WithMessage("Model is required!")
+            .SetValidator(new UserInitialsModelValidator());
     }
 }

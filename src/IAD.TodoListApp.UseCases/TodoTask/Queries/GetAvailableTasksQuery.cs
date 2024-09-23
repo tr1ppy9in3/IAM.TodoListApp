@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
+using AutoMapper;
 
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.UseCases.User;

@@ -16,7 +16,6 @@ using IAD.TodoListApp.UseCases;
 using IAD.TodoListApp.DataAccess.Repositories;
 using IAD.TodoListApp.Chat.Service.Hubs;
 using IAD.TodoListApp.UseCases.User.Queries;
-using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
 using IAD.TodoListApp.UseCases.User;
 using IAD.TodoListApp.UseCases.TodoTask;
 using IAD.TodoListApp.Service.Infrastructure;
@@ -24,6 +23,7 @@ using IAD.TodoListApp.UseCases.Auth;
 using IAD.TodoListApp.UseCases.TaskCategory;
 using IAD.TodoListApp.Core;
 using IAD.TodoListApp.Service.Middlewares;
+using IAD.TodoListApp.UseCases.Auth.Commands;
 
 namespace IAD.TodoListApp.Service;
 

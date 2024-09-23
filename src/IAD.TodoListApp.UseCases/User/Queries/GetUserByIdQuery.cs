@@ -16,7 +16,8 @@ public record class GetUserByIdQuery(long Id) : IRequest<Result<UserBase>>;
 /// </summary>
 public class GetUserByIdQueryHandler(IUserRepository userRepository) : IRequestHandler<GetUserByIdQuery, Result<UserBase>>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<UserBase>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {

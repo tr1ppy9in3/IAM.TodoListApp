@@ -1,9 +1,9 @@
 ﻿using MediatR;
+using FluentValidation;
 
 using IAD.TodoListApp.Packages;
-using System.Runtime.CompilerServices;
 
-namespace IAD.TodoListApp.UseCases.User.Commands.SelfDelete;
+namespace IAD.TodoListApp.UseCases.User.Commands;
 
 /// <summary>
 /// Команда удаления пользователя.
@@ -16,7 +16,7 @@ public sealed record class SelfDeleteCommand(long Id) : IRequest<Result<Unit>>;
 /// </summary>
 public class DeleteUserCommandHandler(IUserRepository userRepository) : IRequestHandler<SelfDeleteCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository 
+    private readonly IUserRepository _userRepository = userRepository
         ?? throw new ArgumentNullException(nameof(userRepository));
 
     public async Task<Result<Unit>> Handle(SelfDeleteCommand request, CancellationToken cancellationToken)
@@ -26,3 +26,15 @@ public class DeleteUserCommandHandler(IUserRepository userRepository) : IRequest
     }
 }
 
+/// <summary>
+/// Валидатор команды удаления пользователя.
+/// </summary>
+public class SelfDeleteCommandValidator : AbstractValidator<SelfDeleteCommand>
+{
+    public SelfDeleteCommandValidator(IUserRepository userRepository)
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("Id is required!")
+            .SetValidator(new UserExistsValidator(userRepository));
+    }
+}

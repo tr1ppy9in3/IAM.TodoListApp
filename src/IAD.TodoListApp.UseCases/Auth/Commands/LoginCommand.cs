@@ -9,8 +9,9 @@ using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.UseCases.User;
 using IAD.TodoListApp.Contracts;
 using AutoMapper;
+using FluentValidation;
 
-namespace IAD.TodoListApp.UseCases.Auth.Commands.LoginCommand;
+namespace IAD.TodoListApp.UseCases.Auth.Commands;
 
 /// <summary>
 /// Команда для авторизации пользователя.
@@ -29,19 +30,19 @@ public class LoginCommandHandler(IUserRepository userRepository,
                                  IOptions<PasswordOptions> passwordOptions,
                                  IMapper mapper) : IRequestHandler<LoginCommand, Result<TokenModel>>
 {
-    private readonly IMapper _mapper = mapper 
+    private readonly IMapper _mapper = mapper
         ?? throw new ArgumentNullException(nameof(mapper));
 
-    private readonly IUserRepository _userRepository = userRepository 
+    private readonly IUserRepository _userRepository = userRepository
         ?? throw new ArgumentNullException(nameof(userRepository));
-    
-    private readonly ITokenService _tokenService = tokenService 
+
+    private readonly ITokenService _tokenService = tokenService
         ?? throw new ArgumentNullException(nameof(tokenService));
-    
-    private readonly ITokenRepository _tokenRepository = tokenRepository 
+
+    private readonly ITokenRepository _tokenRepository = tokenRepository
         ?? throw new ArgumentNullException(nameof(tokenRepository));
-    
-    private readonly string _salt = passwordOptions?.Value?.Salt 
+
+    private readonly string _salt = passwordOptions?.Value?.Salt
         ?? throw new ArgumentNullException(nameof(passwordOptions));
 
     public async Task<Result<TokenModel>> Handle(LoginCommand request, CancellationToken _)
@@ -55,5 +56,20 @@ public class LoginCommandHandler(IUserRepository userRepository,
 
         Token token = await _tokenService.GenerateToken(user);
         return Result<TokenModel>.Success(_mapper.Map<TokenModel>(token));
+    }
+}
+
+/// <summary>
+/// Валидаотр команды для авторизации.
+/// </summary>
+public class LoginCommandValidator : AbstractValidator<LoginCommand>
+{
+    public LoginCommandValidator()
+    {
+        RuleFor(x => x.Login)
+           .NotEmpty().WithMessage("Login is required.");
+
+        RuleFor(x => x.Password)
+            .NotEmpty().WithMessage("Password is required.");
     }
 }

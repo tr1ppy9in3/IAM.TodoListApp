@@ -10,7 +10,7 @@ using IAD.TodoListApp.UseCases.TodoTask.Queries;
 using IAD.TodoListApp.UseCases.TodoTask.Commands.CreateTask;
 using IAD.TodoListApp.UseCases.TodoTask.Commands.UpdateTask;
 using IAD.TodoListApp.UseCases.TodoTask.Commands.DeleteTask;
-using IAD.TodoListApp.UseCases.TodoTask.Commands;
+using IAD.TodoListApp.UseCases.TodoTask.Models;
 
 namespace IAD.TodoListApp.Service.Controllers;
 

@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using FluentValidation;
+
 using Microsoft.Extensions.Options;
 
 using IAD.TodoListApp.Core.Abstractions;
@@ -8,7 +10,7 @@ using IAD.TodoListApp.Core.Options;
 using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.UseCases.User;
 
-namespace IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
+namespace IAD.TodoListApp.UseCases.Auth.Commands;
 
 /// <summary>
 /// Команда для регистрации пользователя.
@@ -24,10 +26,10 @@ public sealed record class RegistrationCommand(string Login, string Password, st
 /// </summary>
 public class RegistrationCommandHandler(IUserRepository userRepository, IOptions<PasswordOptions> passwordOptions) : IRequestHandler<RegistrationCommand, Result<Unit>>
 {
-    private readonly IUserRepository _userRepository = userRepository 
+    private readonly IUserRepository _userRepository = userRepository
         ?? throw new ArgumentNullException(nameof(userRepository));
-    
-    private readonly PasswordOptions _passwordOptions = passwordOptions?.Value 
+
+    private readonly PasswordOptions _passwordOptions = passwordOptions?.Value
         ?? throw new ArgumentNullException(nameof(passwordOptions));
 
     public async Task<Result<Unit>> Handle(RegistrationCommand request, CancellationToken cancellationToken)
@@ -66,5 +68,35 @@ public class RegistrationCommandHandler(IUserRepository userRepository, IOptions
         await _userRepository.Add(user);
 
         return Result<Unit>.SuccessfullyCreated(Unit.Value);
+    }
+}
+
+/// <summary>
+/// Валидатор команды для регистрации пользователя.
+/// </summary>
+public class RegistrationCommandValidator : AbstractValidator<RegistrationCommand>
+{
+    public RegistrationCommandValidator()
+    {
+        RuleFor(x => x.Login)
+            .NotEmpty().WithMessage("Login is required.")
+            .MaximumLength(50).WithMessage("Login must be less than 50 characters.");
+
+        RuleFor(x => x.Password)
+            .NotEmpty().WithMessage("Password is required.")
+            .MinimumLength(5).WithMessage("Password must be at least 5 characters long.");
+
+        RuleFor(x => x.Email)
+            .EmailAddress().WithMessage("A valid email is required.")
+            .When(x => !string.IsNullOrEmpty(x.Email)).WithMessage("Email should be a valid email address.");
+
+        RuleFor(x => x.Role)
+            .NotEmpty().WithMessage("Role is required.")
+            .Must(BeAValidRole).WithMessage("Invalid role specified.");
+    }
+
+    private bool BeAValidRole(string role)
+    {
+        return Enum.TryParse<UserRole>(role, true, out _) && Enum.IsDefined(typeof(UserRole), role);
     }
 }

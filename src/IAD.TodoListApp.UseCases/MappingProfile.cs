@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.Core;
-using IAD.TodoListApp.UseCases.TodoTask.Commands;
+using IAD.TodoListApp.UseCases.TodoTask.Models;
 
 namespace IAD.TodoListApp.UseCases;
 public class MappingProfile : Profile

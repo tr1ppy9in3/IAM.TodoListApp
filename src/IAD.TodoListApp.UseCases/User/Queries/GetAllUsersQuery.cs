@@ -14,7 +14,8 @@ public record class GetAllUsersQuery : IStreamRequest<UserBase> { }
 /// </summary>
 public class GetAllUsersQueryHandler(IUserRepository userRepository) : IStreamRequestHandler<GetAllUsersQuery, UserBase>
 {
-    private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    private readonly IUserRepository _userRepository = userRepository 
+        ?? throw new ArgumentNullException(nameof(userRepository));
 
     public IAsyncEnumerable<UserBase> Handle(GetAllUsersQuery _, CancellationToken cancellationToken)
     {

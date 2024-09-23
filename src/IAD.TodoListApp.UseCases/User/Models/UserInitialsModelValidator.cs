@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using IAD.TodoListApp.Contracts;
-namespace IAD.TodoListApp.UseCases.User.Commands;
+namespace IAD.TodoListApp.UseCases.User.Models;
 
 public class UserInitialsModelValidator : AbstractValidator<UserInitialsModel>
 {

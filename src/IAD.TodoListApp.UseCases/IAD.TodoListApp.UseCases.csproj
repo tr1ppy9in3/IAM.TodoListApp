@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Auth\Commands\DeactivateAllTokensCommand\" />
     <Folder Include="TaskCategory\Commands\" />
     <Folder Include="TaskCategory\Queries\" />
   </ItemGroup>
