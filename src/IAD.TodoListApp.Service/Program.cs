@@ -57,9 +57,10 @@ public static class Program
             options.AddPolicy("AllowAllOrigins",
                 builder =>
                 {
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins("http://localhost:3001")
                            .AllowAnyHeader()
-                           .AllowAnyMethod();
+                           .AllowAnyMethod()
+                           .AllowCredentials();
                 });
         });
 

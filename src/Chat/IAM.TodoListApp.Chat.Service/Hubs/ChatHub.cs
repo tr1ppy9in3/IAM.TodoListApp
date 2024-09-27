@@ -1,8 +1,10 @@
 ﻿using IAD.TodoListApp.Chat.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace IAD.TodoListApp.Chat.Service.Hubs;
 
+[Authorize(Roles ="RegularUser")]
 public class ChatHub : Hub<IChatClient>
 {
     public async Task SendMessage(string message)

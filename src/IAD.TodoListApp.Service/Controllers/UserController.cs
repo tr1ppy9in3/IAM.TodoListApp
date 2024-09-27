@@ -5,12 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.UseCases.User.Queries;
-using IAD.TodoListApp.UseCases.User.Commands.UpdateInitials;
-using IAD.TodoListApp.UseCases.User.Commands.UpdatePicture;
-using IAD.TodoListApp.UseCases.User.Commands.ChangeEmail;
-using IAD.TodoListApp.UseCases.User.Commands.ChangePassword;
-using IAD.TodoListApp.UseCases.User.Commands.SelfDelete;
 using IAD.TodoListApp.Service.Infrastructure;
+using IAD.TodoListApp.UseCases.User.Commands;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
@@ -142,17 +138,17 @@ public class UserController(IMediator mediator, UserAccessor userAccessor) : Con
     /// <response code="204"> Успешно без контента.</response>
     /// <response code="400"> Некорректный запрос. </response>
     /// <param name="password"> Измененный пароль</param>
-    [HttpPost("/change-password")]
-    [ProducesResponseType(204)]
-    [ProducesResponseType(400)]
-    [Authorize(Roles = "Admin, RegularUser")]
-    public async Task<IActionResult> ChangePassword(string password)
-    {
-        long userId = _userAccessor.GetUserId();
+    //[HttpPost("/change-password")]
+    //[ProducesResponseType(204)]
+    //[ProducesResponseType(400)]
+    //[Authorize(Roles = "Admin, RegularUser")]
+    //public async Task<IActionResult> ChangePassword(string password)
+    //{
+    //    long userId = _userAccessor.GetUserId();
 
-        var result = await _mediator.Send(new ChangePasswordCommand(userId, password));
-        return result.ToActionResult();
-    }
+    //    var result = await _mediator.Send(new Change(userId, password));
+    //    return result.ToActionResult();
+    //}
 
     /// <summary>
     /// Удалить текущего пользователя
