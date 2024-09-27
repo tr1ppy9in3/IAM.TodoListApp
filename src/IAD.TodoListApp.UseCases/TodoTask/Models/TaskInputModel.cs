@@ -1,5 +1,9 @@
-﻿using FluentValidation;
-using IAD.TodoListApp.Core.Enums;
+﻿using IAD.TodoListApp.Core.Enums;
+
+using FluentValidation;
+using IAD.TodoListApp.UseCases.TaskCategory;
+using IAD.TodoListApp.UseCases.TaskCategory.Validators;
+using System.Reflection.Metadata.Ecma335;
 
 namespace IAD.TodoListApp.UseCases.TodoTask.Models;
 
@@ -39,7 +43,7 @@ public class TaskInputModel
 /// </summary>
 public class TaskInputModelValidator : AbstractValidator<TaskInputModel>
 {
-    public TaskInputModelValidator()
+    public TaskInputModelValidator(ITaskCategoryRepository taskCategoryRepository)
     {
         RuleFor(task => task.Title)
             .NotEmpty().WithMessage("Заголовок задачи обязателен.")
@@ -58,7 +62,18 @@ public class TaskInputModelValidator : AbstractValidator<TaskInputModel>
             .WithMessage("Недопустимое значение приоритета задачи.");
 
         RuleFor(task => task.CategoryId)
-            .GreaterThan(0).When(task => task.CategoryId.HasValue)
-            .WithMessage("Идентификатор категории задачи должен быть положительным числом.");
+           .NotEmpty().WithMessage("CategoryId is required.")
+           .When(task => task.CategoryId.HasValue)
+           .MustAsync(async (categoryId, cancellation) =>
+           {
+               if (categoryId is null)
+               {
+                   return false;
+               }
+               var category = await taskCategoryRepository.GetById(categoryId.Value);
+               return category != null;
+           }).WithMessage("The specified category does not exist.");
+
+
     }
 }

@@ -3,6 +3,7 @@ using AutoMapper;
 
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.UseCases.User;
+using System.Runtime.CompilerServices;
 
 namespace IAD.TodoListApp.UseCases.TodoTask.Queries;
 
@@ -28,7 +29,7 @@ public class GetAvailableTasksQueryHandler(ITaskRepository taskRepository,
     private readonly IMapper _mapper = mapper 
         ?? throw new ArgumentNullException(nameof(mapper));
 
-    public async IAsyncEnumerable<TaskModel> Handle(GetAvailableTasksQuery request, CancellationToken cancellationToken)
+    public async IAsyncEnumerable<TaskModel> Handle(GetAvailableTasksQuery request, [EnumeratorCancellation]CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetById(request.UserId);
 

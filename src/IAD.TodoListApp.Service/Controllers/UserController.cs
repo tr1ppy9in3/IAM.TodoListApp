@@ -6,7 +6,10 @@ using IAD.TodoListApp.Packages;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.UseCases.User.Queries;
 using IAD.TodoListApp.Service.Infrastructure;
-using IAD.TodoListApp.UseCases.User.Commands;
+using IAD.TodoListApp.UseCases.User.Commands.SelfDeleteCommand;
+using IAD.TodoListApp.UseCases.User.Commands.ChangeEmailCommand;
+using IAD.TodoListApp.UseCases.User.Commands.UpdatePictureCommand;
+using IAD.TodoListApp.UseCases.User.Commands.UpdateInitialsCommand;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
@@ -20,12 +23,14 @@ public class UserController(IMediator mediator, UserAccessor userAccessor) : Con
     /// <summary>
     /// Посредник
     /// </summary>
-    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    private readonly IMediator _mediator = mediator 
+        ?? throw new ArgumentNullException(nameof(mediator));
 
     /// <summary>
     /// Сервис для доступа к данным авторизованного пользователя.
     /// </summary>
-    private readonly UserAccessor _userAccessor = userAccessor ?? throw new ArgumentNullException(nameof(userAccessor));
+    private readonly UserAccessor _userAccessor = userAccessor 
+        ?? throw new ArgumentNullException(nameof(userAccessor));
 
     /// <summary>
     /// Получить инициалы текущего пользователя

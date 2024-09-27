@@ -19,11 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAD.TodoListApp.DataAccess"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chat", "Chat", "{71EF3880-6A3E-4280-94B2-08B36EAB6173}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8B9B623-7270-4FEE-848C-03477368671A}"
-	ProjectSection(SolutionItems) = preProject
-		chatTest.html = chatTest.html
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAD.TodoListApp.Chat.Core", "src\Chat\IAM.TodoListApp.Chat.Core\IAD.TodoListApp.Chat.Core.csproj", "{E3F27C54-F44C-4D95-83C8-2F52D0D8377F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAD.TodoListApp.Chat.Service", "src\Chat\IAM.TodoListApp.Chat.Service\IAD.TodoListApp.Chat.Service.csproj", "{2B87BFB5-5AB7-44C6-AAF8-0E9CE3FB1178}"

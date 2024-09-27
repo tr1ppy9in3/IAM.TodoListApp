@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IAD.TodoListApp.Contracts;
 using IAD.TodoListApp.Core;
+using IAD.TodoListApp.UseCases.TaskCategory.Models;
 using IAD.TodoListApp.UseCases.TodoTask.Models;
 
 namespace IAD.TodoListApp.UseCases;
@@ -11,7 +12,7 @@ public class MappingProfile : Profile
         CreateMap<Token, TokenModel>();
 
         CreateMap<TaskInputModel, Core.TodoTask>()
-            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId ?? 0));
+            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId));
 
         CreateMap<Core.TodoTask, TaskModel>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -23,6 +24,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category != null ? src.Category.Name : null));
 
+        CreateMap<TaskCategoryInputModel, Core.TaskCategory>();
         CreateMap<Core.TaskCategory, TaskCategoryModel>();
     }
 }

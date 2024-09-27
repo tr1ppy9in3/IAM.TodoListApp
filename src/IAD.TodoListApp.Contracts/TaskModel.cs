@@ -1,5 +1,4 @@
-﻿
-namespace IAD.TodoListApp.Contracts;
+﻿namespace IAD.TodoListApp.Contracts;
 
 public class TaskModel
 {
@@ -11,12 +10,12 @@ public class TaskModel
     /// <summary>
     /// Заголовок задачи.
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
     /// <summary>
     /// Описание задачи.
     /// </summary>
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     /// <summary>
     /// Дата и время, к которой задача должна быть завершена.
@@ -26,12 +25,12 @@ public class TaskModel
     /// <summary>
     /// Приоритет задачи.
     /// </summary>
-    public string Priority { get; set; }
+    public string Priority { get; set; } = string.Empty;
 
     /// <summary>
     /// Статус задачи.
     /// </summary>
-    public string Status { get; set; }
+    public string Status { get; set; } = string.Empty;
 
     /// <summary>
     /// Идентификатор категории задачи.
@@ -41,7 +40,5 @@ public class TaskModel
     /// <summary>
     /// Название категории задачи.
     /// </summary>
-    public string CategoryName { get; set; }
-
-
+    public string CategoryName { get; set; } = string.Empty;
 }

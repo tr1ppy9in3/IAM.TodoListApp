@@ -68,12 +68,9 @@ public class UserAccessor(IHttpContextAccessor httpContextAccessor) : IUserAcces
     {
         var roleClaim = _user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
 
-        if (roleClaim != null)
+        if (roleClaim != null && Enum.TryParse(roleClaim.Value, out UserRole role))
         {
-            if (Enum.TryParse(roleClaim.Value, out UserRole role))
-            {
-                return role;
-            }
+            return role;
         }
 
         return UserRole.None;

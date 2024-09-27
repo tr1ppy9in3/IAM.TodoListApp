@@ -1,8 +1,15 @@
-﻿using IAD.TodoListApp.Contracts;
-using IAD.TodoListApp.UseCases.Abstractions;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+using IAD.TodoListApp.Contracts;
+using IAD.TodoListApp.Packages;
+using IAD.TodoListApp.Service.Infrastructure;
+using IAD.TodoListApp.UseCases.TaskCategory.Queries;
+using IAD.TodoListApp.UseCases.TaskCategory.Models;
+using IAD.TodoListApp.UseCases.TaskCategory.Commands.AddTaskCategoryCommand;
+using IAD.TodoListApp.UseCases.TaskCategory.Commands.UpdateTaskCategoryCommand;
+using IAD.TodoListApp.UseCases.TaskCategory.Commands.DeleteTaskCategoryCommand;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
@@ -12,18 +19,19 @@ namespace IAD.TodoListApp.Service.Controllers;
 [Route("api/task_categories")]
 [ApiController]
 [Authorize(Roles = "RegularUser")]
-public class TaskCategoryController(IMediator mediator, IUserAccessor userAccessor) : ControllerBase
+public class TaskCategoryController(IMediator mediator, UserAccessor userAccessor) : ControllerBase
 {
     /// <summary>
     /// Посредник.
     /// </summary>
-    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-
+    private readonly IMediator _mediator = mediator 
+        ?? throw new ArgumentNullException(nameof(mediator));
 
     /// <summary>
     /// Сервис для доступа к данным авторизованного пользователя.
     /// </summary>
-    private readonly IUserAccessor _userAccessor = userAccessor ?? throw new ArgumentNullException(nameof(userAccessor));
+    private readonly UserAccessor _userAccessor = userAccessor 
+        ?? throw new ArgumentNullException(nameof(userAccessor));
 
     /// <summary>
     /// Получить список доступных пользователю категорий задач.
@@ -33,9 +41,11 @@ public class TaskCategoryController(IMediator mediator, IUserAccessor userAccess
     [ProducesResponseType(type: typeof(IAsyncEnumerable<TaskCategoryModel>), 200)]
     [ProducesResponseType(400)]
     [HttpGet]
-    public Task<IActionResult> GetAvailableTaskCategories()
+    public IAsyncEnumerable<TaskCategoryModel> GetAvailableTaskCategories()
     {
-        throw new NotImplementedException();
+        var userId = _userAccessor.GetUserId();
+        return _mediator.CreateStream(new GetAvailableTaskCategoriesQuery(userId));
+        
     }
 
     /// <summary>
@@ -47,10 +57,59 @@ public class TaskCategoryController(IMediator mediator, IUserAccessor userAccess
     [ProducesResponseType(type: typeof(TaskCategoryModel), 200)]
     [ProducesResponseType(400)]
     [HttpGet("{id:long}")]
-    public Task<IActionResult> GetTaskCategoryById(long id)
+    public async Task<IActionResult> GetTaskCategoryById(long id)
     {
-        throw new NotImplementedException();
+        var result = await _mediator.Send(new GetTaskCategoryByIdQuery(id));
+        return result.ToActionResult();
     }
 
+    /// <summary>
+    /// Создать категорию задач.
+    /// </summary>
+    /// <param name="taskCategoryInputModel"> Модель категории задачи. </param>
+    /// <response code="201"> Успешно. </response>
+    /// <response code="400"> Некорректный запрос. </response>
+    [HttpPost]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> Create(TaskCategoryInputModel taskCategoryInputModel)
+    {
+        long userId = _userAccessor.GetUserId();
 
+        var result = await _mediator.Send(new AddTaskCategoryCommand(userId, taskCategoryInputModel));
+        return result.ToActionResult();
+    }
+
+    /// <summary>
+    /// Обновить категорию задач.
+    /// </summary>
+    /// <param name="id"> Идентификатор категории задач. </param>
+    /// <param name="taskCategoryInputModel"> Модель категории задач.</param>
+    /// <response code="204"> Успешно. </response>
+    /// <response code="400"> Некорректный запрос. </response>
+    [HttpPut("{id:long}")]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> Update(long id, TaskCategoryInputModel taskCategoryInputModel)
+    {
+        long userId = _userAccessor.GetUserId();
+
+        var result = await _mediator.Send(new UpdateTaskCategoryCommand(id, userId, taskCategoryInputModel));
+        return result.ToActionResult();
+    }
+
+    /// <summary>
+    /// Удалить категорию задач.
+    /// </summary>
+    /// <param name="id"> Индетификатор категории задач. </param>
+    /// <response code="204"> Успешно. </response>
+    /// <response code="400"> Некорректный запрос. </response>
+    [HttpDelete("{id:long}")]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> Delete(long id)
+    {
+        var result = await _mediator.Send(new DeleteTaskCategoryCommand(id));
+        return result.ToActionResult();
+    }
 }

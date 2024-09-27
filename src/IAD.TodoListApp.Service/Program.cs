@@ -3,27 +3,32 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
-using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.Core.Options;
-using IAD.TodoListApp.Service.SwaggerFilters;
-using RIP.TodoList.DataAccess.Repositories;
+
+using IAD.TodoListApp.Packages;
+
 using IAD.TodoListApp.DataAccess;
+using IAD.TodoListApp.DataAccess.User;
+using IAD.TodoListApp.DataAccess.Auth;
+using IAD.TodoListApp.DataAccess.TodoTask;
+using IAD.TodoListApp.DataAccess.TaskCategory;
+
 using IAD.TodoListApp.UseCases;
-using IAD.TodoListApp.DataAccess.Repositories;
-using IAD.TodoListApp.Chat.Service.Hubs;
-using IAD.TodoListApp.UseCases.User.Queries;
+using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.UseCases.User;
+using IAD.TodoListApp.UseCases.User.Queries;
 using IAD.TodoListApp.UseCases.TodoTask;
-using IAD.TodoListApp.Service.Infrastructure;
+using IAD.TodoListApp.UseCases.TodoTask.Models;
 using IAD.TodoListApp.UseCases.Auth;
 using IAD.TodoListApp.UseCases.TaskCategory;
-using IAD.TodoListApp.Core;
+
+using IAD.TodoListApp.Service.SwaggerFilters;
+using IAD.TodoListApp.Service.Infrastructure;
 using IAD.TodoListApp.Service.Middlewares;
-using IAD.TodoListApp.UseCases.Auth.Commands;
+
+using IAD.TodoListApp.Chat.Service.Hubs;
 
 namespace IAD.TodoListApp.Service;
 
@@ -88,7 +93,14 @@ public static class Program
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(basePath, xmlFile);
             options.IncludeXmlComments(xmlPath);
+
+            options.UseAllOfToExtendReferenceSchemas();
+            options.UseAllOfForInheritance();
+            options.UseOneOfForPolymorphism();
+            options.UseInlineDefinitionsForEnums();
         });
+
+
 
         ConfigureDI(services, cfg);
 
@@ -111,9 +123,7 @@ public static class Program
         // AutoMapper
         services.AddAutoMapper(cfg => cfg.AddProfile(typeof(MappingProfile)));
         // Validation
-        services.AddFluentValidationAutoValidation();
-        services.AddFluentValidationClientsideAdapters();
-        services.AddValidatorsFromAssemblyContaining<RegistrationCommandValidator>();
+        services.AddValidationPipelines(typeof(TaskInputModelValidator).Assembly);
         // Dependencies
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ITokenRepository, TokenRepository>();

@@ -2,9 +2,8 @@
 
 using IAD.TodoListApp.Core.Abstractions;
 using IAD.TodoListApp.Core.Authentication;
-using IAD.TodoListApp.DataAccess.Cfg;
 using IAD.TodoListApp.Core;
-
+using IAD.TodoListApp.DataAccess.User;
 
 namespace IAD.TodoListApp.DataAccess;
 
@@ -13,15 +12,12 @@ namespace IAD.TodoListApp.DataAccess;
 /// </summary>
 public class Context : DbContext
 {
-    // Auth
     public DbSet<UserBase> Users { get; set; }
     public DbSet<Admin> Admins{ get; set; }
     public DbSet<RegularUser> RegularUsers { get; set; }
     public DbSet<Token> Tokens { get; set; }
-    
-    // Buisness models
-    public DbSet<TodoTask> TodoTasks { get; set; }
-    public DbSet<TaskCategory> TaskCategories { get; set; }
+    public DbSet<Core.TodoTask> TodoTasks { get; set; }
+    public DbSet<Core.TaskCategory> TaskCategories { get; set; }
 
     public Context(DbContextOptions<Context> option) : base(option)
     {

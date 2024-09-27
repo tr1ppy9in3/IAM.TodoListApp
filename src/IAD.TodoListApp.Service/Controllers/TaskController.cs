@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using IAD.TodoListApp.Contracts;
-using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.Packages;
+using IAD.TodoListApp.UseCases.Abstractions;
 using IAD.TodoListApp.UseCases.TodoTask.Queries;
 using IAD.TodoListApp.UseCases.TodoTask.Models;
 using IAD.TodoListApp.UseCases.TodoTask.Commands;
+using IAD.TodoListApp.Service.Infrastructure;
+using IAD.TodoListApp.UseCases.TodoTask.Commands.UpdateTaskCommand;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
@@ -18,17 +20,19 @@ namespace IAD.TodoListApp.Service.Controllers;
 [Route("api/tasks")]
 [ApiController]
 [Authorize(Roles = "RegularUser")]
-public class TaskController(IMediator mediator, IUserAccessor userAccessor) : ControllerBase
+public class TaskController(IMediator mediator, UserAccessor userAccessor) : ControllerBase
 {
     /// <summary>
     /// Медиатор.
     /// </summary>
-    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    private readonly IMediator _mediator = mediator 
+        ?? throw new ArgumentNullException(nameof(mediator));
 
     /// <summary>
     /// Сервис для доступа к данным авторизованного пользователя.
     /// </summary>
-    private readonly IUserAccessor _userAccessor = userAccessor ?? throw new ArgumentNullException(nameof(userAccessor));
+    private readonly UserAccessor _userAccessor = userAccessor 
+        ?? throw new ArgumentNullException(nameof(userAccessor));
 
     /// <summary>
     /// Получить список доступных пользователю задач.
@@ -41,13 +45,13 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     public IAsyncEnumerable<TaskModel> GetAvailableTasks()
     {
         long userId = _userAccessor.GetUserId();
-        return mediator.CreateStream(new GetAvailableTasksQuery(userId)); ;
+        return mediator.CreateStream(new GetAvailableTasksQuery(userId));
     }
 
     /// <summary>
     /// Получить задачу по идентификатору.
     /// </summary>
-    /// <param name="id"> Идентификатор пользователя. </param>
+    /// <param name="id"> Идентификатор задачи. </param>
     /// <returns> Задачу. </returns>
     /// <response code="200"> Успешно. Возвращает найденную задачу. </response>
     /// <response code="400"> Некорректный запрос. </response>
@@ -56,7 +60,6 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetTaskById(long id)
     {
-        // TODO: Сделать проверку на принадлежность пользователю задачи;
         var result = await _mediator.Send(new GetTaskByIdQuery(id));
         return result.ToActionResult();
     }
@@ -91,8 +94,8 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     public async Task<IActionResult> Update(long id, TaskInputModel taskInputModel)
     {
         long userId = _userAccessor.GetUserId();
-        // TODO: проверку на создание таски
-        var result = await _mediator.Send(new UpdateTaskCommand(taskInputModel));
+
+        var result = await _mediator.Send(new UpdateTaskCommand(id, userId, taskInputModel));
         return result.ToActionResult();
     }
 
@@ -107,7 +110,6 @@ public class TaskController(IMediator mediator, IUserAccessor userAccessor) : Co
     [ProducesResponseType(400)]
     public async Task<IActionResult> Delete(long id)
     {
-        // TODO: Сделать проверку на принадлежность задачи пользователю
         var result = await _mediator.Send(new DeleteTaskCommand(id));
         return result.ToActionResult();
     }

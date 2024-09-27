@@ -52,5 +52,5 @@ public class TodoTask
     /// Категория, к которой принадлежит задача.
     /// </summary>
     public TaskCategory? Category { get; set; }
-    public long CategoryId { get; set; }
+    public long? CategoryId { get; set; }
 }

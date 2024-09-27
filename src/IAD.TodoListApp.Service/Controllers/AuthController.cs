@@ -1,11 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using IAD.TodoListApp.Packages;
-using IAD.TodoListApp.Contracts;
-using IAD.TodoListApp.Service.Infrastructure;
-using IAD.TodoListApp.UseCases.Auth.Commands;
+using IAD.TodoListApp.Core;
+using IAD.TodoListApp.UseCases.Auth.Commands.LoginComamnd;
+using IAD.TodoListApp.UseCases.Auth.Commands.RegistrationCommand;
 
 namespace IAD.TodoListApp.Service.Controllers;
 
@@ -15,17 +14,12 @@ namespace IAD.TodoListApp.Service.Controllers;
 [Route("api/auth")]
 [ApiController]
 [AllowAnonymous]
-public class AuthController(IMediator mediator, UserAccessor userAccessor) : ControllerBase
+public class AuthController(IMediator mediator) : ControllerBase
 {
     /// <summary>
     /// Посредник.
     /// </summary>
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-
-    /// <summary>
-    /// Сервис для доступа к данным авторизованного пользователя.
-    /// </summary>
-    private readonly UserAccessor _userAccessor = userAccessor ?? throw new ArgumentNullException(nameof(userAccessor));
 
     /// <summary>
     /// Регистрация.
@@ -46,28 +40,12 @@ public class AuthController(IMediator mediator, UserAccessor userAccessor) : Con
     /// <response code="200"> Успешно. </response>
     /// <returns> Токен. </returns>
     /// <response code="400"> Некоретный запрос. </response>
-    [ProducesResponseType(typeof(TokenModel), 200)]
+    [ProducesResponseType(typeof(Token), 200)]
     [ProducesResponseType(400)]
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginCommand request)
     {
         var result = await _mediator.Send(request);
-        return result.ToActionResult();
-    }
-
-    /// <summary>
-    /// Выход.
-    /// </summary>
-    /// <response code="204"> Успешно. </response>
-    /// <returns> Токен. </returns>
-    /// <response code="400"> Некоретный запрос. </response>
-    [Authorize(Roles = "RegularUser")]
-    [HttpPost("logout")]
-    public async Task<IActionResult> Logout()
-    {
-        var token = _userAccessor.GetToken();
-        
-        var result = await _mediator.Send(new LogoutCommand(token!));
         return result.ToActionResult();
     }
 }

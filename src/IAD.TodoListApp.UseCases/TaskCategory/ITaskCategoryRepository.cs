@@ -48,4 +48,6 @@ public interface ITaskCategoryRepository
     /// <param name="categoryId"> Идентификатор категории задачи. </param> 
     /// <param name="userId"> Идентификатор пользователя. </param>
     Task<bool> IsTaskCategoryAvailable(long categoryId, long userId);
+
+    Task<Core.TaskCategory?> GetByName(string name);
 }
